@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ShaderLab - cinematic WebGL backgrounds in minutes</title>
+<meta name="description" content="Create premium WebGL shader backgrounds, animated mesh gradients, product visuals, and export-ready code without starting from a blank canvas.">
+<style>
+:root{--bg:#07080a;--ink:#f4f7f2;--muted:#a9b0aa;--line:rgba(255,255,255,.16);--panel:rgba(8,10,12,.7);--accent:#3ee07f;--sun:#ffd45a;--pink:#ff5db1}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{overflow-x:hidden}
+a{color:inherit}
+.shader-bg{position:fixed;inset:0;z-index:-2;background:#050607}
+.shader-bg canvas{width:100%;height:100%;display:block}
+.veil{position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 50% 12%,rgba(255,255,255,.12),transparent 28%),linear-gradient(180deg,rgba(0,0,0,.18),#07080a 82%);pointer-events:none}
+.wrap{width:min(1120px,calc(100% - 36px));margin:0 auto}
+header{display:flex;align-items:center;justify-content:space-between;padding:22px 0;position:relative;z-index:2}
+.logo{font-size:18px;font-weight:850;letter-spacing:0}.logo span{color:var(--accent)}
+nav{display:flex;gap:8px;align-items:center}
+nav a{font-size:14px;color:#dbe0db;text-decoration:none;padding:8px 10px;border-radius:8px}
+nav a:hover{background:rgba(255,255,255,.08);color:#fff}
+.hero{min-height:calc(100vh - 72px);display:grid;align-content:center;padding:42px 0 78px;position:relative}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(320px,.86fr);gap:42px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:#0b170f;background:var(--accent);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:7px 10px;border-radius:999px}
+h1{font-size:clamp(42px,7vw,88px);line-height:.92;letter-spacing:0;margin:20px 0 22px;font-weight:900;max-width:860px}
+h1 em{font-style:normal;color:var(--sun)}
+.sub{font-size:clamp(17px,2.1vw,22px);color:#d7ddd7;max-width:690px;margin:0 0 28px;text-shadow:0 2px 18px rgba(0,0,0,.55)}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 18px;border-radius:8px;text-decoration:none;font-weight:780;border:1px solid transparent;transition:transform .15s,background .15s,border-color .15s}
+.btn:hover{transform:translateY(-1px)}
+.primary{background:var(--accent);color:#06140b;box-shadow:0 12px 38px rgba(62,224,127,.28)}
+.ghost{background:rgba(8,10,12,.56);border-color:var(--line);backdrop-filter:blur(14px);color:#fff}
+.proof{display:flex;gap:18px;flex-wrap:wrap;margin-top:28px;color:#c7cec8;font-size:13px}
+.proof b{display:block;color:#fff;font-size:22px;line-height:1.1}
+.preview{position:relative;border:1px solid var(--line);background:rgba(0,0,0,.42);backdrop-filter:blur(18px);box-shadow:0 34px 90px rgba(0,0,0,.5);border-radius:8px;overflow:hidden;min-height:520px}
+.preview iframe{width:100%;height:520px;border:0;display:block;filter:saturate(1.08) contrast(1.04)}
+.preview:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 62%,rgba(0,0,0,.42));pointer-events:none}
+section{padding:80px 0}
+.section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:24px}
+h2{font-size:clamp(30px,4.2vw,52px);line-height:1;letter-spacing:0;margin:0;font-weight:900}
+.section-head p{color:var(--muted);max-width:420px;margin:0;font-size:16px}
+.shader-stack{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.shader-card{position:relative;min-height:230px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#0c0e10;box-shadow:0 20px 54px rgba(0,0,0,.28)}
+.shader-card.large{grid-column:span 6;min-height:320px}.shader-card.medium{grid-column:span 4}.shader-card.small{grid-column:span 3}
+.shader-card canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.shader-card .copy{position:absolute;inset:auto 0 0 0;padding:18px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.76) 38%,rgba(0,0,0,.9));text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.shader-card h3{margin:0 0 5px;font-size:18px;letter-spacing:0}
+.shader-card p{margin:0;color:#d3d8d1;font-size:14px;max-width:34ch}
+.band{background:rgba(255,255,255,.04);border-block:1px solid rgba(255,255,255,.08)}
+.story{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+.steps{display:grid;gap:14px}
+.step{display:grid;grid-template-columns:44px 1fr;gap:14px;padding:18px;border:1px solid var(--line);border-radius:8px;background:rgba(8,10,12,.62);backdrop-filter:blur(14px)}
+.num{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#080a0c;font-weight:900}
+.step h3{margin:0 0 4px;font-size:17px}.step p{margin:0;color:var(--muted)}
+.pricing{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:760px;margin:0 auto}
+.tier{border:1px solid var(--line);border-radius:8px;padding:24px;background:rgba(8,10,12,.68);backdrop-filter:blur(16px)}
+.tier.pro{border-color:rgba(62,224,127,.75);box-shadow:0 20px 70px rgba(62,224,127,.14)}
+.tag{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:800}
+.amt{font-size:34px;font-weight:900;margin:5px 0 3px}
+ul{list-style:none;padding:0;margin:18px 0 22px;color:#cbd2cb}
+li{position:relative;padding:6px 0 6px 24px}li:before{content:"";position:absolute;left:0;top:15px;width:10px;height:10px;border-radius:50%;background:var(--accent)}li.no{color:#777f78}li.no:before{background:#454a45}
+footer{padding:44px 0 64px;text-align:center;color:var(--muted);font-size:13px}
+@media(max-width:860px){.hero-grid,.story{grid-template-columns:1fr}.preview{min-height:420px}.preview iframe{height:420px}.shader-card.large,.shader-card.medium,.shader-card.small{grid-column:span 6}.section-head{display:block}.section-head p{margin-top:12px}.pricing{grid-template-columns:1fr}}
+@media(max-width:560px){.wrap{width:min(100% - 28px,1120px)}nav a[href="#stack"]{display:none}.hero{padding-top:24px}.shader-card.large,.shader-card.medium,.shader-card.small{grid-column:1/-1;min-height:250px}.proof{gap:14px}.proof b{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="shader-bg"><canvas id="heroShader" aria-hidden="true"></canvas></div>
+<div class="veil" aria-hidden="true"></div>
+<div class="wrap">
+  <header>
+    <a class="logo" href="#">Shader<span>Lab</span></a>
+    <nav><a href="#stack">Looks</a><a href="#workflow">Workflow</a><a href="#pricing">Pricing</a><a href="./app.html">Open app</a></nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">WebGL looks, no blank canvas</span>
+          <h1>Make your website feel <em>expensive</em>.</h1>
+          <p class="sub">ShaderLab turns color, motion, texture, and distortion into ready-to-ship WebGL backgrounds. Build a signature visual in minutes, then export the exact code for your stack.</p>
+          <div class="cta">
+            <a class="btn primary" href="./app.html">Start designing</a>
+            <a class="btn ghost" href="https://gumroad.com/l/shaderlab" target="_blank" rel="noopener">Unlock export</a>
+          </div>
+          <div class="proof">
+            <span><b>60+</b>shader passes</span>
+            <span><b>6</b>export targets</span>
+            <span><b>0</b>runtime dependencies</span>
+          </div>
+        </div>
+        <div class="preview" aria-label="ShaderLab app preview"><iframe src="./app.html" title="ShaderLab playground" loading="lazy"></iframe></div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="section-head">
+        <h2>A new visual system every refresh.</h2>
+        <p>Each block below is its own generated shader mood: different palettes, motion fields, grain, glass, glow, and distortion, with contrast overlays keeping the message sharp.</p>
+      </div>
+      <div class="shader-stack">
+        <article class="shader-card large"><canvas></canvas><div class="copy"><h3>Launch Screens</h3><p>Hero backgrounds with enough movement to feel alive, not noisy.</p></div></article>
+        <article class="shader-card medium"><canvas></canvas><div class="copy"><h3>Product Drama</h3><p>Turn flat screenshots and packshots into high-energy campaign visuals.</p></div></article>
+        <article class="shader-card medium"><canvas></canvas><div class="copy"><h3>Brand Atmospheres</h3><p>Build a recognizable world around color, grain, and motion.</p></div></article>
+        <article class="shader-card small"><canvas></canvas><div class="copy"><h3>Glass</h3><p>Polished blur and refraction for premium surfaces.</p></div></article>
+        <article class="shader-card small"><canvas></canvas><div class="copy"><h3>Glitch</h3><p>Sharp energy for drops, teasers, and social edits.</p></div></article>
+        <article class="shader-card small"><canvas></canvas><div class="copy"><h3>Film</h3><p>Grain, bloom, vignette, and tactile finish.</p></div></article>
+        <article class="shader-card small"><canvas></canvas><div class="copy"><h3>Export</h3><p>HTML, JS, Vue, React, Svelte, GLSL, and presets.</p></div></article>
+      </div>
+    </section>
+  </main>
+</div>
+
+<section class="band" id="workflow">
+  <div class="wrap story">
+    <div>
+      <h2>From vibe to production code.</h2>
+      <p class="sub">A creative playground for founders, designers, and front-end teams who need a visual edge without commissioning a custom renderer.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><div><h3>Generate the base mood</h3><p>Start with animated mesh gradients, solid color fields, or your own product image.</p></div></div>
+      <div class="step"><div class="num">2</div><div><h3>Stack the signal</h3><p>Layer color, light, distortion, film, glitch, cursor reaction, and custom GLSL until it feels ownable.</p></div></div>
+      <div class="step"><div class="num">3</div><div><h3>Ship the actual asset</h3><p>Export a PNG for quick use, or unlock framework-ready code for a live background that keeps moving.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <section id="pricing">
+    <div class="section-head">
+      <h2>Design free. Export when it clicks.</h2>
+      <p>Explore every effect first. Pay only when you want the production files.</p>
+    </div>
+    <div class="pricing">
+      <div class="tier">
+        <div class="tag">Playground</div>
+        <div class="amt">€0</div>
+        <ul>
+          <li>All shader effects</li>
+          <li>Live preview and image upload</li>
+          <li>PNG and SVG background export</li>
+          <li class="no">Framework code export</li>
+        </ul>
+        <a class="btn ghost" href="./app.html" style="width:100%">Open ShaderLab</a>
+      </div>
+      <div class="tier pro">
+        <div class="tag">Creator Unlock</div>
+        <div class="amt">€0.99+</div>
+        <ul>
+          <li>Everything in the playground</li>
+          <li>HTML, JS, Vue, React, Svelte</li>
+          <li>Raw GLSL passes and JSON presets</li>
+          <li>License key, yours forever</li>
+        </ul>
+        <a class="btn primary" href="https://gumroad.com/l/shaderlab" target="_blank" rel="noopener" style="width:100%">Get export access</a>
+      </div>
+    </div>
+  </section>
+  <footer>ShaderLab - premium WebGL motion for launches, products, portfolios, and campaigns.</footer>
+</div>
+
+<script>
+const palettes=[
+  ["#3ee07f","#0b132b","#ffd45a","#ff5db1"],
+  ["#8df7ff","#17324d","#f7ea7a","#ff6f61"],
+  ["#d6ff6b","#111111","#5f6fff","#ffffff"],
+  ["#ff9f1c","#2ec4b6","#101820","#e71d36"],
+  ["#b8f7d4","#1b1f3b","#f45b69","#f4f1de"]
+];
+function hexToRgb(hex){return [1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255)}
+function startShader(canvas,seed,hero=false){
+  const gl=canvas.getContext("webgl2",{antialias:false,premultipliedAlpha:false});
+  if(!gl){return}
+  const vertex=`#version 300 es
+  in vec2 p; out vec2 uv; void main(){uv=p*.5+.5;gl_Position=vec4(p,0.,1.);}`;
+  const fragment=`#version 300 es
+  precision highp float; in vec2 uv; out vec4 outColor; uniform vec2 res; uniform float time; uniform vec3 c0; uniform vec3 c1; uniform vec3 c2; uniform vec3 c3; uniform float seed;
+  float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7))+seed)*43758.5453);}
+  float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
+  mat2 rot(float a){float s=sin(a),c=cos(a);return mat2(c,-s,s,c);}
+  void main(){
+    vec2 q=(gl_FragCoord.xy-.5*res)/res.y;
+    vec2 p=q*rot(.18*sin(seed));
+    float t=time*(.12+.035*seed);
+    float n=noise(p*(2.2+mod(seed,3.))*1.4+t)+.5*noise(p*7.0-t*1.7);
+    float rings=sin(length(p+vec2(sin(t),cos(t*.7))*.22)*(18.+seed*2.)-time*(1.2+mod(seed,2.)));
+    float glass=sin((p.x+n*.18)*12.+time*.8)*sin((p.y-n*.14)*10.-time*.7);
+    vec3 col=mix(c0,c1,smoothstep(-.45,.72,p.x+n*.42));
+    col=mix(col,c2,smoothstep(.12,.92,n));
+    col=mix(col,c3,.26+.22*rings+.18*glass);
+    col+=pow(max(0.,1.-length(q*1.35)),2.)*.22;
+    col*=.72+.42*noise(gl_FragCoord.xy*.7+time);
+    float vign=smoothstep(1.25,.18,length(q));
+    outColor=vec4(col*vign,1.);
+  }`;
+  function shader(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s}
+  const prog=gl.createProgram();gl.attachShader(prog,shader(gl.VERTEX_SHADER,vertex));gl.attachShader(prog,shader(gl.FRAGMENT_SHADER,fragment));gl.bindAttribLocation(prog,0,"p");gl.linkProgram(prog);
+  const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+  const pal=palettes[seed%palettes.length].map(hexToRgb);
+  function resize(){const d=Math.min(devicePixelRatio||1,2);const w=Math.max(2,Math.floor(canvas.clientWidth*d));const h=Math.max(2,Math.floor(canvas.clientHeight*d));if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h)}}
+  function frame(now){resize();gl.useProgram(prog);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.uniform2f(gl.getUniformLocation(prog,"res"),canvas.width,canvas.height);gl.uniform1f(gl.getUniformLocation(prog,"time"),now*.001);gl.uniform1f(gl.getUniformLocation(prog,"seed"),seed+(hero?9.5:0));pal.forEach((c,i)=>gl.uniform3f(gl.getUniformLocation(prog,"c"+i),c[0],c[1],c[2]));gl.drawArrays(gl.TRIANGLE_STRIP,0,4);requestAnimationFrame(frame)}
+  requestAnimationFrame(frame);
+}
+startShader(document.getElementById("heroShader"),Math.floor(Math.random()*999),true);
+document.querySelectorAll(".shader-card canvas").forEach((canvas,i)=>startShader(canvas,Math.floor(Math.random()*999)+i*17));
+</script>
+</body>
+</html>
