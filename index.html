@@ -6,71 +6,71 @@
 <title>ShaderLab - cinematic WebGL backgrounds in minutes</title>
 <meta name="description" content="Create premium WebGL shader backgrounds, animated mesh gradients, product visuals, and export-ready code without starting from a blank canvas.">
 <style>
-:root{--bg:#07080a;--ink:#f4f7f2;--muted:#a9b0aa;--line:rgba(255,255,255,.16);--panel:rgba(8,10,12,.7);--accent:#3ee07f;--sun:#ffd45a;--pink:#ff5db1}
+:root{--bg:#f7f8f4;--ink:#101411;--muted:#5e665f;--line:rgba(16,20,17,.12);--panel:rgba(255,255,255,.72);--accent:#1f9f62;--sun:#c58a19;--pink:#c44c82}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
 body{overflow-x:hidden}
 a{color:inherit}
-.shader-bg{position:fixed;inset:0;z-index:-2;background:#050607}
+.shader-bg{position:fixed;inset:0;z-index:-2;background:#fbfbf7}
 .shader-bg canvas{width:100%;height:100%;display:block}
-.veil{position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 50% 12%,rgba(255,255,255,.12),transparent 28%),linear-gradient(180deg,rgba(0,0,0,.18),#07080a 82%);pointer-events:none}
+.veil{position:fixed;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(247,248,244,.9) 72%,#f7f8f4),radial-gradient(circle at 50% 12%,rgba(255,255,255,.78),transparent 35%);pointer-events:none}
 .wrap{width:min(1120px,calc(100% - 36px));margin:0 auto}
 header{display:flex;align-items:center;justify-content:space-between;padding:22px 0;position:relative;z-index:2}
 .logo{font-size:18px;font-weight:850;letter-spacing:0}.logo span{color:var(--accent)}
 nav{display:flex;gap:8px;align-items:center}
-nav a{font-size:14px;color:#dbe0db;text-decoration:none;padding:8px 10px;border-radius:8px}
-nav a:hover{background:rgba(255,255,255,.08);color:#fff}
+nav a{font-size:14px;color:#4d564f;text-decoration:none;padding:8px 10px;border-radius:8px}
+nav a:hover{background:rgba(16,20,17,.06);color:#101411}
 .hero{min-height:calc(100vh - 72px);display:grid;align-content:center;padding:42px 0 78px;position:relative}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.74fr);gap:42px;align-items:center}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;color:#0b170f;background:var(--accent);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:7px 10px;border-radius:999px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:#0e2a1b;background:#dff8e9;border:1px solid rgba(31,159,98,.18);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:7px 10px;border-radius:999px}
 h1{font-size:clamp(42px,7vw,88px);line-height:.92;letter-spacing:0;margin:20px 0 22px;font-weight:900;max-width:860px}
 h1 em{font-style:normal;color:var(--sun)}
-.sub{font-size:clamp(17px,2.1vw,22px);color:#d7ddd7;max-width:690px;margin:0 0 28px;text-shadow:0 2px 18px rgba(0,0,0,.55)}
+.sub{font-size:clamp(17px,2.1vw,22px);color:#475149;max-width:690px;margin:0 0 28px}
 .cta{display:flex;gap:12px;flex-wrap:wrap}
-.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 19px;border-radius:8px;text-decoration:none;font-weight:780;border:1px solid rgba(255,255,255,.2);transition:transform .15s,background .15s,border-color .15s;overflow:hidden;isolation:isolate;text-shadow:0 1px 10px rgba(0,0,0,.55)}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 19px;border-radius:8px;text-decoration:none;font-weight:780;border:1px solid rgba(16,20,17,.12);transition:transform .15s,background .15s,border-color .15s;overflow:hidden;isolation:isolate;text-shadow:0 1px 10px rgba(255,255,255,.65)}
 .btn:hover{transform:translateY(-1px)}
 .btn canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:-2}
-.btn:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(0,0,0,.42),rgba(0,0,0,.12)),radial-gradient(circle at 20% 0,rgba(255,255,255,.28),transparent 38%)}
-.primary{background:#0a120d;color:#fff;box-shadow:0 12px 38px rgba(62,224,127,.28)}
-.ghost{background:rgba(8,10,12,.56);border-color:var(--line);backdrop-filter:blur(14px);color:#fff}
-.proof{display:flex;gap:18px;flex-wrap:wrap;margin-top:28px;color:#c7cec8;font-size:13px}
-.proof b{display:block;color:#fff;font-size:22px;line-height:1.1}
+.btn:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(255,255,255,.88),rgba(255,255,255,.46)),radial-gradient(circle at 18% 0,rgba(255,255,255,.68),transparent 38%)}
+.primary{background:#eefbf3;color:#0d2b1b;box-shadow:0 14px 38px rgba(31,159,98,.16)}
+.ghost{background:rgba(255,255,255,.66);border-color:var(--line);backdrop-filter:blur(14px);color:#1c241e}
+.proof{display:flex;gap:18px;flex-wrap:wrap;margin-top:28px;color:#5f6861;font-size:13px}
+.proof b{display:block;color:#111713;font-size:22px;line-height:1.1}
 .hero-showcase{display:grid;grid-template-columns:1fr 1fr;gap:12px;min-height:520px}
-.hero-tile{position:relative;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#0c0e10;box-shadow:0 28px 80px rgba(0,0,0,.46)}
+.hero-tile{position:relative;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;box-shadow:0 24px 70px rgba(48,59,51,.14)}
 .hero-tile:first-child{grid-column:1/-1;min-height:285px}
 .hero-tile canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.hero-tile .copy{position:absolute;inset:auto 0 0 0;padding:18px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.74) 42%,rgba(0,0,0,.9));text-shadow:0 2px 16px rgba(0,0,0,.85)}
-.hero-tile h3{margin:0 0 4px;font-size:18px}.hero-tile p{margin:0;color:#d8ded8;font-size:14px}
+.hero-tile .copy{position:absolute;inset:auto 0 0 0;padding:18px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.84) 34%,rgba(255,255,255,.96));text-shadow:0 1px 16px rgba(255,255,255,.9)}
+.hero-tile h3{margin:0 0 4px;font-size:18px;color:#101411}.hero-tile p{margin:0;color:#4b554d;font-size:14px}
 section{padding:80px 0}
 .section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:24px}
 h2{font-size:clamp(30px,4.2vw,52px);line-height:1;letter-spacing:0;margin:0;font-weight:900}
 .section-head p{color:var(--muted);max-width:420px;margin:0;font-size:16px}
 .shader-stack{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
-.shader-card{position:relative;min-height:230px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#0c0e10;box-shadow:0 20px 54px rgba(0,0,0,.28)}
+.shader-card{position:relative;min-height:230px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;box-shadow:0 20px 54px rgba(48,59,51,.12)}
 .shader-card.large{grid-column:span 6;min-height:320px}.shader-card.medium{grid-column:span 4}.shader-card.small{grid-column:span 3}
 .shader-card canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.shader-card .copy{position:absolute;inset:auto 0 0 0;padding:18px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.76) 38%,rgba(0,0,0,.9));text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.shader-card .copy{position:absolute;inset:auto 0 0 0;padding:18px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.86) 36%,rgba(255,255,255,.97));text-shadow:0 1px 14px rgba(255,255,255,.9)}
 .shader-card h3{margin:0 0 5px;font-size:18px;letter-spacing:0}
-.shader-card p{margin:0;color:#d3d8d1;font-size:14px;max-width:34ch}
-.band{position:relative;overflow:hidden;background:rgba(255,255,255,.04);border-block:1px solid rgba(255,255,255,.08)}
-.band>canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:.5}
-.band:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,8,10,.86),rgba(7,8,10,.62));pointer-events:none}
+.shader-card p{margin:0;color:#4f5a52;font-size:14px;max-width:34ch}
+.band{position:relative;overflow:hidden;background:rgba(255,255,255,.52);border-block:1px solid rgba(16,20,17,.08)}
+.band>canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:.42}
+.band:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.92),rgba(255,255,255,.68));pointer-events:none}
 .band .wrap{position:relative;z-index:1}
 .story{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
 .steps{display:grid;gap:14px}
-.step{position:relative;display:grid;grid-template-columns:44px 1fr;gap:14px;padding:18px;border:1px solid var(--line);border-radius:8px;background:rgba(8,10,12,.62);backdrop-filter:blur(14px);overflow:hidden;isolation:isolate}
+.step{position:relative;display:grid;grid-template-columns:44px 1fr;gap:14px;padding:18px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.7);backdrop-filter:blur(14px);overflow:hidden;isolation:isolate;box-shadow:0 16px 40px rgba(48,59,51,.09)}
 .step canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:-2;opacity:.7}
-.step:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.5))}
-.num{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#080a0c;font-weight:900}
+.step:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(255,255,255,.88),rgba(255,255,255,.58))}
+.num{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#101411;color:#fff;font-weight:900}
 .step h3{margin:0 0 4px;font-size:17px}.step p{margin:0;color:var(--muted)}
 .pricing{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:760px;margin:0 auto}
-.tier{position:relative;border:1px solid var(--line);border-radius:8px;padding:24px;background:rgba(8,10,12,.68);backdrop-filter:blur(16px);overflow:hidden;isolation:isolate}
+.tier{position:relative;border:1px solid var(--line);border-radius:8px;padding:24px;background:rgba(255,255,255,.72);backdrop-filter:blur(16px);overflow:hidden;isolation:isolate;box-shadow:0 18px 48px rgba(48,59,51,.1)}
 .tier>canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:-2;opacity:.74}
-.tier:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.68),rgba(0,0,0,.9))}
-.tier.pro{border-color:rgba(62,224,127,.75);box-shadow:0 20px 70px rgba(62,224,127,.14)}
+.tier:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(255,255,255,.96))}
+.tier.pro{border-color:rgba(31,159,98,.32);box-shadow:0 20px 70px rgba(31,159,98,.12)}
 .tag{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:800}
 .amt{font-size:34px;font-weight:900;margin:5px 0 3px}
-ul{list-style:none;padding:0;margin:18px 0 22px;color:#cbd2cb}
+ul{list-style:none;padding:0;margin:18px 0 22px;color:#4b554d}
 li{position:relative;padding:6px 0 6px 24px}li:before{content:"";position:absolute;left:0;top:15px;width:10px;height:10px;border-radius:50%;background:var(--accent)}li.no{color:#777f78}li.no:before{background:#454a45}
 footer{padding:44px 0 64px;text-align:center;color:var(--muted);font-size:13px}
 @media(max-width:860px){.hero-grid,.story{grid-template-columns:1fr}.hero-showcase{min-height:430px}.shader-card.large,.shader-card.medium,.shader-card.small{grid-column:span 6}.section-head{display:block}.section-head p{margin-top:12px}.pricing{grid-template-columns:1fr}}
@@ -182,11 +182,19 @@ footer{padding:44px 0 64px;text-align:center;color:var(--muted);font-size:13px}
 
 <script>
 const palettes=[
-  ["#3ee07f","#0b132b","#ffd45a","#ff5db1"],
-  ["#8df7ff","#17324d","#f7ea7a","#ff6f61"],
-  ["#d6ff6b","#111111","#5f6fff","#ffffff"],
-  ["#ff9f1c","#2ec4b6","#101820","#e71d36"],
-  ["#b8f7d4","#1b1f3b","#f45b69","#f4f1de"]
+  ["#fbfbf7","#dff8e9","#b8dff2","#f2c7d8"],
+  ["#fffaf2","#f6dfad","#b9e1d0","#c8d2ff"],
+  ["#f8fbff","#cde8ff","#e8d8ff","#ffe2cc"],
+  ["#fbfff8","#d6f4c8","#f5d8a8","#e8c8f4"],
+  ["#fff9fb","#f6cadb","#d7eff0","#f3e7b4"],
+  ["#f8f7ff","#cfd4ff","#d7f3e4","#ffe5ba"],
+  ["#fffffb","#d8ead2","#bde3e8","#efd7b7"]
+];
+const shaderRules=[
+  {speed:.018,scale:1.7,wave:3.2,contrast:.78},
+  {speed:.024,scale:2.2,wave:4.8,contrast:.7},
+  {speed:.014,scale:1.35,wave:2.6,contrast:.62},
+  {speed:.02,scale:1.9,wave:3.8,contrast:.74}
 ];
 function hexToRgb(hex){return [1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255)}
 function startShader(canvas,seed,hero=false){
@@ -195,36 +203,42 @@ function startShader(canvas,seed,hero=false){
   const vertex=`#version 300 es
   in vec2 p; out vec2 uv; void main(){uv=p*.5+.5;gl_Position=vec4(p,0.,1.);}`;
   const fragment=`#version 300 es
-  precision highp float; in vec2 uv; out vec4 outColor; uniform vec2 res; uniform float time; uniform vec3 c0; uniform vec3 c1; uniform vec3 c2; uniform vec3 c3; uniform float seed;
+  precision highp float; in vec2 uv; out vec4 outColor; uniform vec2 res; uniform float time; uniform vec3 c0; uniform vec3 c1; uniform vec3 c2; uniform vec3 c3; uniform float seed; uniform vec4 rules;
   float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7))+seed)*43758.5453);}
   float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
   mat2 rot(float a){float s=sin(a),c=cos(a);return mat2(c,-s,s,c);}
   void main(){
     vec2 q=(gl_FragCoord.xy-.5*res)/res.y;
-    vec2 p=q*rot(.18*sin(seed));
-    float t=time*(.12+.035*seed);
-    float n=noise(p*(2.2+mod(seed,3.))*1.4+t)+.5*noise(p*7.0-t*1.7);
-    float rings=sin(length(p+vec2(sin(t),cos(t*.7))*.22)*(18.+seed*2.)-time*(1.2+mod(seed,2.)));
-    float glass=sin((p.x+n*.18)*12.+time*.8)*sin((p.y-n*.14)*10.-time*.7);
-    vec3 col=mix(c0,c1,smoothstep(-.45,.72,p.x+n*.42));
-    col=mix(col,c2,smoothstep(.12,.92,n));
-    col=mix(col,c3,.26+.22*rings+.18*glass);
-    col+=pow(max(0.,1.-length(q*1.35)),2.)*.22;
-    col*=.72+.42*noise(gl_FragCoord.xy*.7+time);
-    float vign=smoothstep(1.25,.18,length(q));
-    outColor=vec4(col*vign,1.);
+    vec2 p=q*rot(.15*sin(seed*.73));
+    float t=time*rules.x;
+    vec2 drift=vec2(sin(t+seed),cos(t*.83+seed*.31))*.18;
+    float n1=noise((p+drift)*rules.y+seed*.07);
+    float n2=noise((p*2.7-drift*.7)*rules.y+seed*.11);
+    float field=smoothstep(.12,.9,n1*.68+n2*.32);
+    float ribbon=.5+.5*sin((p.x*rules.z+p.y*(rules.z*.42))+n1*2.2+t*2.4+seed);
+    float glow=pow(max(0.,1.-length(q+drift*.22)),1.85);
+    vec3 col=mix(c0,c1,field);
+    col=mix(col,c2,smoothstep(.22,.86,ribbon)*.58);
+    col=mix(col,c3,glow*.42);
+    col=mix(vec3(.985,.985,.955),col,rules.w);
+    col+=rules.z*.004*sin((p.x+p.y+seed)*12.+t*3.);
+    col+=(hash(gl_FragCoord.xy+time)-.5)*rules.w*0.018;
+    float edge=1.-smoothstep(.52,1.25,length(q));
+    col=mix(vec3(1.),col,.72+.28*edge);
+    outColor=vec4(clamp(col,0.,1.),1.);
   }`;
   function shader(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s}
   const prog=gl.createProgram();gl.attachShader(prog,shader(gl.VERTEX_SHADER,vertex));gl.attachShader(prog,shader(gl.FRAGMENT_SHADER,fragment));gl.bindAttribLocation(prog,0,"p");gl.linkProgram(prog);
   const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
-  const pal=palettes[seed%palettes.length].map(hexToRgb);
+  const pal=palettes[Math.abs(seed)%palettes.length].map(hexToRgb);
+  const rule=shaderRules[Math.abs(seed*7)%shaderRules.length];
   function resize(){const d=Math.min(devicePixelRatio||1,2);const w=Math.max(2,Math.floor(canvas.clientWidth*d));const h=Math.max(2,Math.floor(canvas.clientHeight*d));if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h)}}
-  function frame(now){resize();gl.useProgram(prog);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.uniform2f(gl.getUniformLocation(prog,"res"),canvas.width,canvas.height);gl.uniform1f(gl.getUniformLocation(prog,"time"),now*.001);gl.uniform1f(gl.getUniformLocation(prog,"seed"),seed+(hero?9.5:0));pal.forEach((c,i)=>gl.uniform3f(gl.getUniformLocation(prog,"c"+i),c[0],c[1],c[2]));gl.drawArrays(gl.TRIANGLE_STRIP,0,4);requestAnimationFrame(frame)}
+  function frame(now){resize();gl.useProgram(prog);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.uniform2f(gl.getUniformLocation(prog,"res"),canvas.width,canvas.height);gl.uniform1f(gl.getUniformLocation(prog,"time"),now*.001);gl.uniform1f(gl.getUniformLocation(prog,"seed"),seed+(hero?9.5:0));gl.uniform4f(gl.getUniformLocation(prog,"rules"),rule.speed*(hero?.72:1),rule.scale,rule.wave,rule.contrast);pal.forEach((c,i)=>gl.uniform3f(gl.getUniformLocation(prog,"c"+i),c[0],c[1],c[2]));gl.drawArrays(gl.TRIANGLE_STRIP,0,4);requestAnimationFrame(frame)}
   requestAnimationFrame(frame);
 }
-const baseSeed=Math.floor(Math.random()*999);
+const baseSeed=(Date.now()+Math.floor(Math.random()*100000))%100000;
 document.querySelectorAll("canvas").forEach((canvas,i)=>{
-  startShader(canvas,baseSeed+i*23,canvas.id==="heroShader");
+  startShader(canvas,baseSeed+i*37+Math.floor(Math.random()*19),canvas.id==="heroShader");
 });
 </script>
 </body>
