@@ -10,9 +10,9 @@
       --accent-ink: #062514;
       --shadow: 0 24px 70px rgba(48, 59, 51, .14);
       --wash-strong: rgba(255, 255, 255, .94);
-      --wash-soft: rgba(255, 255, 255, .78);
-      --wash-card: rgba(255, 255, 255, .88);
-      --shader-opacity: .72;
+      --wash-soft: rgba(255, 255, 255, .64);
+      --wash-card: rgba(255, 255, 255, .74);
+      --shader-opacity: .92;
     }
     @media (prefers-color-scheme: dark) {
       :root {
@@ -25,9 +25,9 @@
         --accent-ink: #062514;
         --shadow: 0 24px 70px rgba(0, 0, 0, .36);
         --wash-strong: rgba(14, 17, 16, .94);
-        --wash-soft: rgba(14, 17, 16, .78);
-        --wash-card: rgba(18, 22, 20, .88);
-        --shader-opacity: .5;
+        --wash-soft: rgba(14, 17, 16, .66);
+        --wash-card: rgba(18, 22, 20, .74);
+        --shader-opacity: .82;
       }
     }
     [data-theme="light"] {
@@ -41,9 +41,9 @@
       --accent-ink: #062514;
       --shadow: 0 24px 70px rgba(48, 59, 51, .14);
       --wash-strong: rgba(255, 255, 255, .94);
-      --wash-soft: rgba(255, 255, 255, .78);
-      --wash-card: rgba(255, 255, 255, .88);
-      --shader-opacity: .72;
+      --wash-soft: rgba(255, 255, 255, .64);
+      --wash-card: rgba(255, 255, 255, .74);
+      --shader-opacity: .92;
     }
     [data-theme="dark"] {
       color-scheme: dark;
@@ -56,9 +56,9 @@
       --accent-ink: #062514;
       --shadow: 0 24px 70px rgba(0, 0, 0, .36);
       --wash-strong: rgba(14, 17, 16, .94);
-      --wash-soft: rgba(14, 17, 16, .78);
-      --wash-card: rgba(18, 22, 20, .88);
-      --shader-opacity: .5;
+      --wash-soft: rgba(14, 17, 16, .66);
+      --wash-card: rgba(18, 22, 20, .74);
+      --shader-opacity: .82;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -75,8 +75,9 @@
     .ambient {
       position: fixed;
       inset: 0;
-      z-index: -2;
+      z-index: 0;
       background: var(--bg);
+      pointer-events: none;
     }
     .ambient canvas {
       width: 100%;
@@ -86,11 +87,11 @@
     .veil {
       position: fixed;
       inset: 0;
-      z-index: -1;
+      z-index: 1;
       pointer-events: none;
       background: linear-gradient(180deg, var(--wash-soft), var(--bg) 82%);
     }
-    .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    .wrap { position: relative; z-index: 2; width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
     header {
       display: flex;
       align-items: center;
@@ -184,18 +185,20 @@
     .buy canvas, .secondary canvas {
       position: absolute;
       inset: 0;
-      z-index: -2;
+      z-index: 0;
       width: 100%;
       height: 100%;
       display: block;
+      opacity: var(--shader-opacity);
     }
     .buy:after, .secondary:after {
       content: "";
       position: absolute;
       inset: 0;
-      z-index: -1;
+      z-index: 1;
       background: linear-gradient(90deg, var(--wash-strong), var(--wash-soft));
     }
+    .buy > span, .secondary > span { position: relative; z-index: 2; }
     .buy { color: var(--accent-ink); border-color: rgba(31, 159, 98, .35); }
     .buy:hover, .secondary:hover { transform: translateY(-1px); }
     .price-pill {
@@ -247,10 +250,12 @@
       height: 100%;
       display: block;
       opacity: var(--shader-opacity);
+      z-index: 0;
     }
     .surface div {
       position: absolute;
       inset: auto 0 0 0;
+      z-index: 1;
       padding: 18px;
       background: linear-gradient(180deg, transparent, var(--wash-soft) 34%, var(--wash-strong));
     }
@@ -291,7 +296,7 @@
     .card canvas {
       position: absolute;
       inset: 0;
-      z-index: -2;
+      z-index: 0;
       width: 100%;
       height: 100%;
       opacity: var(--shader-opacity);
@@ -300,9 +305,10 @@
       content: "";
       position: absolute;
       inset: 0;
-      z-index: -1;
+      z-index: 1;
       background: linear-gradient(180deg, var(--wash-strong), var(--wash-card));
     }
+    .card > *:not(canvas) { position: relative; z-index: 2; }
     .card h3 { margin: 0 0 8px; font-size: 19px; }
     .card p { margin: 0; color: var(--muted); }
     .checkout {
@@ -323,7 +329,7 @@
     .offer canvas {
       position: absolute;
       inset: 0;
-      z-index: -2;
+      z-index: 0;
       width: 100%;
       height: 100%;
       opacity: var(--shader-opacity);
@@ -332,9 +338,10 @@
       content: "";
       position: absolute;
       inset: 0;
-      z-index: -1;
+      z-index: 1;
       background: linear-gradient(135deg, var(--wash-strong), var(--wash-card));
     }
+    .offer > *:not(canvas) { position: relative; z-index: 2; }
     .offer h2 { font-size: clamp(28px, 4vw, 48px); line-height: 1; margin: 8px 0 14px; }
     .offer ul { list-style: none; padding: 0; margin: 20px 0 24px; color: var(--muted); }
     .offer li { position: relative; padding: 7px 0 7px 24px; }
@@ -486,18 +493,18 @@
   <script>
     (function () {
       var palettes = [
-        ["#fbfbf7", "#dff8e9", "#b8dff2", "#f2c7d8"],
-        ["#fffaf2", "#f6dfad", "#b9e1d0", "#c8d2ff"],
-        ["#f8fbff", "#cde8ff", "#e8d8ff", "#ffe2cc"],
-        ["#fbfff8", "#d6f4c8", "#f5d8a8", "#e8c8f4"],
-        ["#fff9fb", "#f6cadb", "#d7eff0", "#f3e7b4"],
-        ["#f8f7ff", "#cfd4ff", "#d7f3e4", "#ffe5ba"]
+        ["#fbfbf7", "#a8efc4", "#78c9f2", "#f28ebd"],
+        ["#fffaf2", "#f2c565", "#77d6b0", "#8fa2ff"],
+        ["#f8fbff", "#8bd0ff", "#c49cff", "#ffb079"],
+        ["#fbfff8", "#a9ec7e", "#f0b257", "#d894ee"],
+        ["#fff9fb", "#ed8fb4", "#97dfe2", "#ecd16d"],
+        ["#f8f7ff", "#9ba8ff", "#92e4b5", "#ffc774"]
       ];
       var rules = [
-        { speed: .012, scale: 1.45, wave: 2.4, contrast: .5 },
-        { speed: .016, scale: 1.8, wave: 3.1, contrast: .56 },
-        { speed: .010, scale: 1.2, wave: 2.0, contrast: .46 },
-        { speed: .014, scale: 1.6, wave: 2.8, contrast: .52 }
+        { speed: .012, scale: 1.45, wave: 2.4, contrast: .64 },
+        { speed: .016, scale: 1.8, wave: 3.1, contrast: .7 },
+        { speed: .010, scale: 1.2, wave: 2.0, contrast: .58 },
+        { speed: .014, scale: 1.6, wave: 2.8, contrast: .66 }
       ];
       function rgb(hex) {
         return [1, 3, 5].map(function (i) { return parseInt(hex.slice(i, i + 2), 16) / 255; });
