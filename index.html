@@ -21,21 +21,26 @@ nav{display:flex;gap:8px;align-items:center}
 nav a{font-size:14px;color:#dbe0db;text-decoration:none;padding:8px 10px;border-radius:8px}
 nav a:hover{background:rgba(255,255,255,.08);color:#fff}
 .hero{min-height:calc(100vh - 72px);display:grid;align-content:center;padding:42px 0 78px;position:relative}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(320px,.86fr);gap:42px;align-items:center}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.74fr);gap:42px;align-items:center}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;color:#0b170f;background:var(--accent);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:7px 10px;border-radius:999px}
 h1{font-size:clamp(42px,7vw,88px);line-height:.92;letter-spacing:0;margin:20px 0 22px;font-weight:900;max-width:860px}
 h1 em{font-style:normal;color:var(--sun)}
 .sub{font-size:clamp(17px,2.1vw,22px);color:#d7ddd7;max-width:690px;margin:0 0 28px;text-shadow:0 2px 18px rgba(0,0,0,.55)}
 .cta{display:flex;gap:12px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 18px;border-radius:8px;text-decoration:none;font-weight:780;border:1px solid transparent;transition:transform .15s,background .15s,border-color .15s}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 19px;border-radius:8px;text-decoration:none;font-weight:780;border:1px solid rgba(255,255,255,.2);transition:transform .15s,background .15s,border-color .15s;overflow:hidden;isolation:isolate;text-shadow:0 1px 10px rgba(0,0,0,.55)}
 .btn:hover{transform:translateY(-1px)}
-.primary{background:var(--accent);color:#06140b;box-shadow:0 12px 38px rgba(62,224,127,.28)}
+.btn canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:-2}
+.btn:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(0,0,0,.42),rgba(0,0,0,.12)),radial-gradient(circle at 20% 0,rgba(255,255,255,.28),transparent 38%)}
+.primary{background:#0a120d;color:#fff;box-shadow:0 12px 38px rgba(62,224,127,.28)}
 .ghost{background:rgba(8,10,12,.56);border-color:var(--line);backdrop-filter:blur(14px);color:#fff}
 .proof{display:flex;gap:18px;flex-wrap:wrap;margin-top:28px;color:#c7cec8;font-size:13px}
 .proof b{display:block;color:#fff;font-size:22px;line-height:1.1}
-.preview{position:relative;border:1px solid var(--line);background:rgba(0,0,0,.42);backdrop-filter:blur(18px);box-shadow:0 34px 90px rgba(0,0,0,.5);border-radius:8px;overflow:hidden;min-height:520px}
-.preview iframe{width:100%;height:520px;border:0;display:block;filter:saturate(1.08) contrast(1.04)}
-.preview:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 62%,rgba(0,0,0,.42));pointer-events:none}
+.hero-showcase{display:grid;grid-template-columns:1fr 1fr;gap:12px;min-height:520px}
+.hero-tile{position:relative;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#0c0e10;box-shadow:0 28px 80px rgba(0,0,0,.46)}
+.hero-tile:first-child{grid-column:1/-1;min-height:285px}
+.hero-tile canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero-tile .copy{position:absolute;inset:auto 0 0 0;padding:18px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.74) 42%,rgba(0,0,0,.9));text-shadow:0 2px 16px rgba(0,0,0,.85)}
+.hero-tile h3{margin:0 0 4px;font-size:18px}.hero-tile p{margin:0;color:#d8ded8;font-size:14px}
 section{padding:80px 0}
 .section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:24px}
 h2{font-size:clamp(30px,4.2vw,52px);line-height:1;letter-spacing:0;margin:0;font-weight:900}
@@ -47,21 +52,28 @@ h2{font-size:clamp(30px,4.2vw,52px);line-height:1;letter-spacing:0;margin:0;font
 .shader-card .copy{position:absolute;inset:auto 0 0 0;padding:18px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.76) 38%,rgba(0,0,0,.9));text-shadow:0 2px 12px rgba(0,0,0,.8)}
 .shader-card h3{margin:0 0 5px;font-size:18px;letter-spacing:0}
 .shader-card p{margin:0;color:#d3d8d1;font-size:14px;max-width:34ch}
-.band{background:rgba(255,255,255,.04);border-block:1px solid rgba(255,255,255,.08)}
+.band{position:relative;overflow:hidden;background:rgba(255,255,255,.04);border-block:1px solid rgba(255,255,255,.08)}
+.band>canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:.5}
+.band:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,8,10,.86),rgba(7,8,10,.62));pointer-events:none}
+.band .wrap{position:relative;z-index:1}
 .story{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
 .steps{display:grid;gap:14px}
-.step{display:grid;grid-template-columns:44px 1fr;gap:14px;padding:18px;border:1px solid var(--line);border-radius:8px;background:rgba(8,10,12,.62);backdrop-filter:blur(14px)}
+.step{position:relative;display:grid;grid-template-columns:44px 1fr;gap:14px;padding:18px;border:1px solid var(--line);border-radius:8px;background:rgba(8,10,12,.62);backdrop-filter:blur(14px);overflow:hidden;isolation:isolate}
+.step canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:-2;opacity:.7}
+.step:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.5))}
 .num{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#080a0c;font-weight:900}
 .step h3{margin:0 0 4px;font-size:17px}.step p{margin:0;color:var(--muted)}
 .pricing{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:760px;margin:0 auto}
-.tier{border:1px solid var(--line);border-radius:8px;padding:24px;background:rgba(8,10,12,.68);backdrop-filter:blur(16px)}
+.tier{position:relative;border:1px solid var(--line);border-radius:8px;padding:24px;background:rgba(8,10,12,.68);backdrop-filter:blur(16px);overflow:hidden;isolation:isolate}
+.tier>canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:-2;opacity:.74}
+.tier:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.68),rgba(0,0,0,.9))}
 .tier.pro{border-color:rgba(62,224,127,.75);box-shadow:0 20px 70px rgba(62,224,127,.14)}
 .tag{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:800}
 .amt{font-size:34px;font-weight:900;margin:5px 0 3px}
 ul{list-style:none;padding:0;margin:18px 0 22px;color:#cbd2cb}
 li{position:relative;padding:6px 0 6px 24px}li:before{content:"";position:absolute;left:0;top:15px;width:10px;height:10px;border-radius:50%;background:var(--accent)}li.no{color:#777f78}li.no:before{background:#454a45}
 footer{padding:44px 0 64px;text-align:center;color:var(--muted);font-size:13px}
-@media(max-width:860px){.hero-grid,.story{grid-template-columns:1fr}.preview{min-height:420px}.preview iframe{height:420px}.shader-card.large,.shader-card.medium,.shader-card.small{grid-column:span 6}.section-head{display:block}.section-head p{margin-top:12px}.pricing{grid-template-columns:1fr}}
+@media(max-width:860px){.hero-grid,.story{grid-template-columns:1fr}.hero-showcase{min-height:430px}.shader-card.large,.shader-card.medium,.shader-card.small{grid-column:span 6}.section-head{display:block}.section-head p{margin-top:12px}.pricing{grid-template-columns:1fr}}
 @media(max-width:560px){.wrap{width:min(100% - 28px,1120px)}nav a[href="#stack"]{display:none}.hero{padding-top:24px}.shader-card.large,.shader-card.medium,.shader-card.small{grid-column:1/-1;min-height:250px}.proof{gap:14px}.proof b{font-size:19px}}
 </style>
 </head>
@@ -82,8 +94,8 @@ footer{padding:44px 0 64px;text-align:center;color:var(--muted);font-size:13px}
           <h1>Make your website feel <em>expensive</em>.</h1>
           <p class="sub">ShaderLab turns color, motion, texture, and distortion into ready-to-ship WebGL backgrounds. Build a signature visual in minutes, then export the exact code for your stack.</p>
           <div class="cta">
-            <a class="btn primary" href="./app.html">Start designing</a>
-            <a class="btn ghost" href="https://gumroad.com/l/shaderlab" target="_blank" rel="noopener">Unlock export</a>
+            <a class="btn primary shader-surface" href="./app.html"><canvas aria-hidden="true"></canvas><span>Start designing</span></a>
+            <a class="btn ghost shader-surface" href="https://gumroad.com/l/shaderlab" target="_blank" rel="noopener"><canvas aria-hidden="true"></canvas><span>Unlock export</span></a>
           </div>
           <div class="proof">
             <span><b>60+</b>shader passes</span>
@@ -91,7 +103,11 @@ footer{padding:44px 0 64px;text-align:center;color:var(--muted);font-size:13px}
             <span><b>0</b>runtime dependencies</span>
           </div>
         </div>
-        <div class="preview" aria-label="ShaderLab app preview"><iframe src="./app.html" title="ShaderLab playground" loading="lazy"></iframe></div>
+        <div class="hero-showcase" aria-label="Generated ShaderLab background examples">
+          <article class="hero-tile"><canvas aria-hidden="true"></canvas><div class="copy"><h3>No screenshots. Just atmosphere.</h3><p>Randomized live shader output becomes the whole page language.</p></div></article>
+          <article class="hero-tile"><canvas aria-hidden="true"></canvas><div class="copy"><h3>CTA Energy</h3><p>Buttons can carry motion too.</p></div></article>
+          <article class="hero-tile"><canvas aria-hidden="true"></canvas><div class="copy"><h3>Readable</h3><p>Every layer keeps the copy crisp.</p></div></article>
+        </div>
       </div>
     </section>
 
@@ -101,28 +117,29 @@ footer{padding:44px 0 64px;text-align:center;color:var(--muted);font-size:13px}
         <p>Each block below is its own generated shader mood: different palettes, motion fields, grain, glass, glow, and distortion, with contrast overlays keeping the message sharp.</p>
       </div>
       <div class="shader-stack">
-        <article class="shader-card large"><canvas></canvas><div class="copy"><h3>Launch Screens</h3><p>Hero backgrounds with enough movement to feel alive, not noisy.</p></div></article>
-        <article class="shader-card medium"><canvas></canvas><div class="copy"><h3>Product Drama</h3><p>Turn flat screenshots and packshots into high-energy campaign visuals.</p></div></article>
-        <article class="shader-card medium"><canvas></canvas><div class="copy"><h3>Brand Atmospheres</h3><p>Build a recognizable world around color, grain, and motion.</p></div></article>
-        <article class="shader-card small"><canvas></canvas><div class="copy"><h3>Glass</h3><p>Polished blur and refraction for premium surfaces.</p></div></article>
-        <article class="shader-card small"><canvas></canvas><div class="copy"><h3>Glitch</h3><p>Sharp energy for drops, teasers, and social edits.</p></div></article>
-        <article class="shader-card small"><canvas></canvas><div class="copy"><h3>Film</h3><p>Grain, bloom, vignette, and tactile finish.</p></div></article>
-        <article class="shader-card small"><canvas></canvas><div class="copy"><h3>Export</h3><p>HTML, JS, Vue, React, Svelte, GLSL, and presets.</p></div></article>
+        <article class="shader-card large"><canvas aria-hidden="true"></canvas><div class="copy"><h3>Launch Screens</h3><p>Hero backgrounds with enough movement to feel alive, not noisy.</p></div></article>
+        <article class="shader-card medium"><canvas aria-hidden="true"></canvas><div class="copy"><h3>Product Drama</h3><p>Turn flat screenshots and packshots into high-energy campaign visuals.</p></div></article>
+        <article class="shader-card medium"><canvas aria-hidden="true"></canvas><div class="copy"><h3>Brand Atmospheres</h3><p>Build a recognizable world around color, grain, and motion.</p></div></article>
+        <article class="shader-card small"><canvas aria-hidden="true"></canvas><div class="copy"><h3>Glass</h3><p>Polished blur and refraction for premium surfaces.</p></div></article>
+        <article class="shader-card small"><canvas aria-hidden="true"></canvas><div class="copy"><h3>Glitch</h3><p>Sharp energy for drops, teasers, and social edits.</p></div></article>
+        <article class="shader-card small"><canvas aria-hidden="true"></canvas><div class="copy"><h3>Film</h3><p>Grain, bloom, vignette, and tactile finish.</p></div></article>
+        <article class="shader-card small"><canvas aria-hidden="true"></canvas><div class="copy"><h3>Export</h3><p>HTML, JS, Vue, React, Svelte, GLSL, and presets.</p></div></article>
       </div>
     </section>
   </main>
 </div>
 
 <section class="band" id="workflow">
+  <canvas aria-hidden="true"></canvas>
   <div class="wrap story">
     <div>
       <h2>From vibe to production code.</h2>
       <p class="sub">A creative playground for founders, designers, and front-end teams who need a visual edge without commissioning a custom renderer.</p>
     </div>
     <div class="steps">
-      <div class="step"><div class="num">1</div><div><h3>Generate the base mood</h3><p>Start with animated mesh gradients, solid color fields, or your own product image.</p></div></div>
-      <div class="step"><div class="num">2</div><div><h3>Stack the signal</h3><p>Layer color, light, distortion, film, glitch, cursor reaction, and custom GLSL until it feels ownable.</p></div></div>
-      <div class="step"><div class="num">3</div><div><h3>Ship the actual asset</h3><p>Export a PNG for quick use, or unlock framework-ready code for a live background that keeps moving.</p></div></div>
+      <div class="step"><canvas aria-hidden="true"></canvas><div class="num">1</div><div><h3>Generate the base mood</h3><p>Start with animated mesh gradients, solid color fields, or your own product image.</p></div></div>
+      <div class="step"><canvas aria-hidden="true"></canvas><div class="num">2</div><div><h3>Stack the signal</h3><p>Layer color, light, distortion, film, glitch, cursor reaction, and custom GLSL until it feels ownable.</p></div></div>
+      <div class="step"><canvas aria-hidden="true"></canvas><div class="num">3</div><div><h3>Ship the actual asset</h3><p>Export a PNG for quick use, or unlock framework-ready code for a live background that keeps moving.</p></div></div>
     </div>
   </div>
 </section>
@@ -135,17 +152,19 @@ footer{padding:44px 0 64px;text-align:center;color:var(--muted);font-size:13px}
     </div>
     <div class="pricing">
       <div class="tier">
+        <canvas aria-hidden="true"></canvas>
         <div class="tag">Playground</div>
         <div class="amt">€0</div>
         <ul>
           <li>All shader effects</li>
-          <li>Live preview and image upload</li>
+          <li>Animated shader surfaces and image upload</li>
           <li>PNG and SVG background export</li>
           <li class="no">Framework code export</li>
         </ul>
-        <a class="btn ghost" href="./app.html" style="width:100%">Open ShaderLab</a>
+        <a class="btn ghost shader-surface" href="./app.html" style="width:100%"><canvas aria-hidden="true"></canvas><span>Open ShaderLab</span></a>
       </div>
       <div class="tier pro">
+        <canvas aria-hidden="true"></canvas>
         <div class="tag">Creator Unlock</div>
         <div class="amt">€0.99+</div>
         <ul>
@@ -154,7 +173,7 @@ footer{padding:44px 0 64px;text-align:center;color:var(--muted);font-size:13px}
           <li>Raw GLSL passes and JSON presets</li>
           <li>License key, yours forever</li>
         </ul>
-        <a class="btn primary" href="https://gumroad.com/l/shaderlab" target="_blank" rel="noopener" style="width:100%">Get export access</a>
+        <a class="btn primary shader-surface" href="https://gumroad.com/l/shaderlab" target="_blank" rel="noopener" style="width:100%"><canvas aria-hidden="true"></canvas><span>Get export access</span></a>
       </div>
     </div>
   </section>
@@ -203,8 +222,10 @@ function startShader(canvas,seed,hero=false){
   function frame(now){resize();gl.useProgram(prog);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.uniform2f(gl.getUniformLocation(prog,"res"),canvas.width,canvas.height);gl.uniform1f(gl.getUniformLocation(prog,"time"),now*.001);gl.uniform1f(gl.getUniformLocation(prog,"seed"),seed+(hero?9.5:0));pal.forEach((c,i)=>gl.uniform3f(gl.getUniformLocation(prog,"c"+i),c[0],c[1],c[2]));gl.drawArrays(gl.TRIANGLE_STRIP,0,4);requestAnimationFrame(frame)}
   requestAnimationFrame(frame);
 }
-startShader(document.getElementById("heroShader"),Math.floor(Math.random()*999),true);
-document.querySelectorAll(".shader-card canvas").forEach((canvas,i)=>startShader(canvas,Math.floor(Math.random()*999)+i*17));
+const baseSeed=Math.floor(Math.random()*999);
+document.querySelectorAll("canvas").forEach((canvas,i)=>{
+  startShader(canvas,baseSeed+i*23,canvas.id==="heroShader");
+});
 </script>
 </body>
 </html>
